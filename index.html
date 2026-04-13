@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redactieprotocol — De Correspondent</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+  :root {
+    --blauw: #1a3a6b;
+    --blauw-licht: #2e5fa3;
+    --blauw-zacht: #d6e4f7;
+    --blauw-achter: #eaf1fb;
+    --wit: #ffffff;
+    --tekst: #1a1a2e;
+    --grijs: #6b7a8d;
+    --grijs-licht: #f4f6f9;
+    --groen: #2d7a4f;
+    --groen-licht: #e6f4ed;
+    --oranje: #c45c1a;
+    --oranje-licht: #fdf0e6;
+    --accent: #e8b84b;
+    --rand: #c8d8ee;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Source Serif 4', Georgia, serif;
+    background: var(--grijs-licht);
+    color: var(--tekst);
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: var(--blauw);
+    color: var(--wit);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(26,58,107,0.3);
+  }
+
+  .header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--blauw-zacht);
+    letter-spacing: 0.02em;
+    border-right: 1px solid rgba(255,255,255,0.2);
+    padding-right: 24px;
+    flex-shrink: 0;
+  }
+
+  .header-title {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .header-title strong {
+    display: block;
+    font-weight: 500;
+    font-size: 1rem;
+    color: white;
+    letter-spacing: 0.05em;
+    text-transform: none;
+  }
+
+  .header-tag {
+    margin-left: auto;
+    background: var(--accent);
+    color: var(--blauw);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 2px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  /* INTRO */
+  .intro-band {
+    background: var(--blauw-achter);
+    border-bottom: 1px solid var(--rand);
+    padding: 28px 32px;
+  }
+
+  .intro-band-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+
+  .intro-text {
+    grid-column: 1 / 3;
+    font-size: 1.05rem;
+    line-height: 1.7;
+    color: var(--blauw);
+    font-style: italic;
+    font-weight: 300;
+  }
+
+  .intro-meta {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    color: var(--grijs);
+    line-height: 1.8;
+    border-left: 2px solid var(--rand);
+    padding-left: 16px;
+  }
+
+  .intro-meta strong {
+    color: var(--blauw);
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  /* TABS */
+  .tabs-wrapper {
+    max-width: 1100px;
+    margin: 32px auto 0;
+    padding: 0 32px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid var(--rand);
+    margin-bottom: 32px;
+  }
+
+  .tab-btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--grijs);
+    background: none;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .tab-btn:hover { color: var(--blauw-licht); }
+  .tab-btn.active {
+    color: var(--blauw);
+    border-bottom-color: var(--blauw);
+    font-weight: 600;
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* MANIFEST SECTION */
+  .manifest-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .manifest-item {
+    background: white;
+    border: 1px solid var(--rand);
+    border-left: 4px solid var(--blauw-licht);
+    padding: 16px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    border-radius: 0 4px 4px 0;
+  }
+
+  .manifest-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    color: var(--blauw-zacht);
+    font-weight: 700;
+    line-height: 1;
+    flex-shrink: 0;
+    width: 28px;
+    text-align: center;
+  }
+
+  .manifest-tekst {
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: var(--tekst);
+  }
+
+  /* BESLISBOOM */
+  .boom-sectie {
+    margin-bottom: 36px;
+  }
+
+  .boom-sectie-titel {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--grijs);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .boom-sectie-titel::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rand);
+  }
+
+  .vraag-kaart {
+    background: white;
+    border: 1px solid var(--rand);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(26,58,107,0.06);
+    transition: box-shadow 0.2s;
+  }
+
+  .vraag-kaart:hover { box-shadow: 0 4px 16px rgba(26,58,107,0.12); }
+
+  .vraag-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .vraag-icon {
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    width: 30px;
+    text-align: center;
+  }
+
+  .vraag-tekst {
+    font-size: 0.95rem;
+    font-weight: 400;
+    color: var(--blauw);
+    flex: 1;
+    line-height: 1.4;
+  }
+
+  .vraag-chevron {
+    font-size: 0.7rem;
+    color: var(--grijs);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+
+  .vraag-kaart.open .vraag-chevron { transform: rotate(180deg); }
+
+  .vraag-body {
+    display: none;
+    padding: 0 20px 18px 64px;
+  }
+
+  .vraag-kaart.open .vraag-body { display: block; }
+
+  /* ANTWOORD ITEMS */
+  .antwoord {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    font-size: 0.88rem;
+    line-height: 1.55;
+  }
+
+  .antwoord.ja {
+    background: var(--groen-licht);
+    border-left: 3px solid var(--groen);
+  }
+
+  .antwoord.nee {
+    background: var(--oranje-licht);
+    border-left: 3px solid var(--oranje);
+  }
+
+  .antwoord.info {
+    background: var(--blauw-achter);
+    border-left: 3px solid var(--blauw-licht);
+  }
+
+  .antwoord.waarschuwing {
+    background: #fff8e6;
+    border-left: 3px solid var(--accent);
+  }
+
+  .antwoord-label {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    flex-shrink: 0;
+    margin-top: 2px;
+    min-width: 36px;
+  }
+
+  .antwoord.ja .antwoord-label { color: var(--groen); }
+  .antwoord.nee .antwoord-label { color: var(--oranje); }
+  .antwoord.info .antwoord-label { color: var(--blauw-licht); }
+  .antwoord.waarschuwing .antwoord-label { color: #8a6a00; }
+
+  .antwoord-tekst { color: var(--tekst); }
+
+  /* SNELREFERENTIE */
+  .snel-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+
+  .snel-kaart {
+    background: white;
+    border: 1px solid var(--rand);
+    border-radius: 6px;
+    padding: 18px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+  }
+
+  .snel-kaart-titel {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--blauw);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .snel-kaart ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .snel-kaart ul li {
+    padding: 4px 0;
+    border-bottom: 1px solid var(--grijs-licht);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.83rem;
+    color: var(--tekst);
+  }
+
+  .snel-kaart ul li:last-child { border-bottom: none; }
+
+  .snel-kaart ul li::before {
+    content: '—';
+    color: var(--grijs);
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    margin-top: 2px;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 2px 7px;
+    border-radius: 2px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .badge.verboden { background: #fde8e8; color: #b91c1c; }
+  .badge.toestemming { background: #fff8e6; color: #8a6a00; }
+  .badge.vrij { background: var(--groen-licht); color: var(--groen); }
+  .badge.altijd { background: var(--blauw-achter); color: var(--blauw); }
+
+  /* FOOTER */
+  .footer {
+    max-width: 1100px;
+    margin: 48px auto 0;
+    padding: 24px 32px;
+    border-top: 1px solid var(--rand);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    color: var(--grijs);
+  }
+
+  .footer em {
+    font-style: italic;
+    color: var(--blauw);
+  }
+
+  @media (max-width: 700px) {
+    .intro-band-inner { grid-template-columns: 1fr; }
+    .intro-text { grid-column: 1; }
+    .manifest-grid { grid-template-columns: 1fr; }
+    .snel-grid { grid-template-columns: 1fr; }
+    .tabs { overflow-x: auto; }
+    .tabs-wrapper { padding: 0 16px; }
+    .header-inner { padding: 14px 16px; }
+  }
+
+  /* Search */
+  .zoekbalk-wrapper {
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .zoekbalk {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid var(--rand);
+    border-radius: 4px;
+    background: white;
+    color: var(--tekst);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .zoekbalk:focus { border-color: var(--blauw-licht); }
+
+  .zoek-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--grijs);
+    font-size: 0.9rem;
+    pointer-events: none;
+  }
+
+  .hidden { display: none !important; }
+
+  .highlight-match {
+    background: rgba(232, 184, 75, 0.35);
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">de Correspondent</div>
+    <div class="header-title">
+      <span>Praktische gids</span>
+      <strong>Redactieprotocol — Beslisboom</strong>
+    </div>
+    <div class="header-tag">Onboarding</div>
+  </div>
+</header>
+
+<div class="intro-band">
+  <div class="intro-band-inner">
+    <div class="intro-text">
+      Alles wat je vandáág al moet weten: waar je je aan te houden hebt, waar de vrijheden liggen, en wanneer je even moet overleggen. Klik een situatie open — of zoek direct.
+    </div>
+    <div class="intro-meta">
+      <strong>Gebaseerd op</strong>
+      Redactieprotocol De Correspondent<br>
+      <strong>Drie delen</strong>
+      Waar we voor staan · Hoe we ons gedragen · Hoe we werken<br>
+      <strong>Eindverantwoordelijkheid</strong>
+      Altijd bij de hoofdredacteur
+    </div>
+  </div>
+</div>
+
+<div class="tabs-wrapper">
+  <div class="tabs">
+    <button class="tab-btn active" onclick="toonTab('boom', this)">🌳 Beslisboom</button>
+    <button class="tab-btn" onclick="toonTab('snel', this)">⚡ Snelreferentie</button>
+    <button class="tab-btn" onclick="toonTab('manifest', this)">📜 De 10 principes</button>
+  </div>
+
+  <!-- TAB 1: BESLISBOOM -->
+  <div id="tab-boom" class="tab-content active">
+
+    <div class="zoekbalk-wrapper">
+      <span class="zoek-icon">🔍</span>
+      <input type="text" class="zoekbalk" placeholder="Zoek op situatie, onderwerp of trefwoord…" id="zoeker" oninput="filterVragen()">
+    </div>
+
+    <!-- SECTIE: GEDRAG & INTEGRITEIT -->
+    <div class="boom-sectie">
+      <div class="boom-sectie-titel">Gedrag &amp; integriteit</div>
+
+      <div class="vraag-kaart" data-tags="advertentie reclame gesponsord commercieel">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">📢</div>
+          <div class="vraag-tekst">Mag ik advertenties of gesponsorde content plaatsen?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Nee</span><span class="antwoord-tekst">De Correspondent is volledig advertentievrij. Geen advertenties, geen advertorials van derden — ook niet op aanvraag.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Wel</span><span class="antwoord-tekst">Promotie van eigen journalistieke producties (podcasts, boeken, optredens) is toegestaan; de hoofdredactie beslist hierover.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="betaling interview bron informatie geld vergoeding">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">💶</div>
+          <div class="vraag-tekst">Mag ik een bron of geïnterviewde betalen voor informatie of toegang?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Nee</span><span class="antwoord-tekst">Wij betalen nooit voor interviews, informatie of toegang tot evenementen.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Wel</span><span class="antwoord-tekst">Een klein gebaar na afloop is oké (boek, bloemen). Reiskosten van de geïnterviewde vergoeden is mogelijk ná akkoord hoofdredactie. Betaling voor registeropvragen (Handelsregister, Kadaster) en media-abonnementen is toegestaan.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="belang nevenfunctie partij organisatie conflict interest">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">⚖️</div>
+          <div class="vraag-tekst">Ik ben betrokken bij een maatschappelijke organisatie of partij — is dat een probleem?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Mag</span><span class="antwoord-tekst">Actieve deelname aan de samenleving wordt juist toegejuicht. 'Neutraliteit' is geen vereiste.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Maar</span><span class="antwoord-tekst">Deel het proactief met je leidinggevende en collega's — en met lezers als het relevant is voor je werk.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Niet</span><span class="antwoord-tekst">Een financieel belang bij iets buiten DC dat raakt aan je journalistieke werk is verboden. Activiteiten voor concurrerende media of tegen vergoeding vereisen toestemming van het bestuur.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="cadeau gift present bloemen boek vergoeding ontvangen">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🎁</div>
+          <div class="vraag-tekst">Mag ik een cadeau of vergoeding aannemen van een bron of geïnterviewde?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Nee</span><span class="antwoord-tekst">Geen cadeaus of vergoedingen van bronnen of geïnterviewden — ook niet als ze vriendelijk bedoeld zijn.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Wel</span><span class="antwoord-tekst">Recensie-exemplaren (boeken, materiaal) zijn oké zolang er geen voorwaarden aan zitten. Een bloemetje ná een lezing of panelgesprek mag ook.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Lezingen</span><span class="antwoord-tekst">Vergoeding voor een lezing spreek je vooraf af met de opdrachtgever en legt dit vast. De inhoud van de lezing pas je níét aan op verzoek.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="nevenfunctie bijbaan freelance substack ander medium werkzaamheden">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🔀</div>
+          <div class="vraag-tekst">Wil ik iets doen voor een ander medium of platform (Substack, freelance, etc.)?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Eerst</span><span class="antwoord-tekst">Schriftelijke toestemming van het bestuur is verplicht voor nevenactiviteiten — ook voor eenmalige jury's of afstudeercommissies.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Check</span><span class="antwoord-tekst">Raakt het aan je journalistieke werk? Dan ook melden bij de hoofdredactie. Mag niet conflicteren met het belang van DC of ten koste gaan van je werk hier.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Doorplaatsing</span><span class="antwoord-tekst">Samenwerken met andere media is mogelijk, maar alleen ná akkoord van de hoofdredactie.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="plagiaat zelfplagiaat kopiëren overnemen eigen werk eerder gepubliceerd">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">📋</div>
+          <div class="vraag-tekst">Mag ik eerder gepubliceerd werk (van mijzelf of anderen) hergebruiken?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Verbod</span><span class="antwoord-tekst">Andermans werk als eigen werk presenteren is plagiaat — een journalistieke hoofdzonde. Kan leiden tot beëindiging samenwerking.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Zelfplagiaat</span><span class="antwoord-tekst">Eigen werk dat elders verscheen presenteren als nieuw is ook niet toegestaan.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Uitzondering</span><span class="antwoord-tekst">Doorplaatsing van eerder elders verschenen werk is mogelijk — mét bronvermelding. Elke publicatie vereist uitgebreide bronvermelding.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="reis vliegtuig persreis gesponsord embedded buitenland auto trein">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">✈️</div>
+          <div class="vraag-tekst">Ik moet reizen voor een reportage — hoe werkt dat?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">OV eerst</span><span class="antwoord-tekst">In principe reizen we met het openbaar vervoer. Vliegtuig alleen als het journalistieke belang de uitstoot rechtvaardigt. CO₂-uitstoot compenseren we in tienvoud.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Europa</span><span class="antwoord-tekst">Kortdurende reizen binnen Europa financier je zelf. Duurder buitenland: subsidie aanvragen bij journalistiekfondsen — vermeld dit bij publicatie.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Persreizen</span><span class="antwoord-tekst">Geen deelname aan georganiseerde, gesponsorde persreizen. Uitzondering: als de reis zélf het onderwerp is — altijd transparant over onafhankelijkheid.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Embedded</span><span class="antwoord-tekst">Uiterst terughoudend met embedded journalism. Als het moet: afspraken met hoofdredactie, altijd vermelden in het artikel.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="duurzaamheid co2 klimaat milieu voetafdruk">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🌱</div>
+          <div class="vraag-tekst">Wat is de duurzaamheidskoers van de redactie?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Koers</span><span class="antwoord-tekst">Voetafdruk zoveel mogelijk beperken. Lokale makers inzetten om onnodige reizen te vermijden. Resterende CO₂-uitstoot wordt tienvoudig gecompenseerd (financiële prikkel voor betere alternatieven). Verantwoording aan leden.</span></div>
+        </div>
+      </div>
+
+    </div><!-- /sectie gedrag -->
+
+    <!-- SECTIE: WERKMETHODEN -->
+    <div class="boom-sectie">
+      <div class="boom-sectie-titel">Werkmethoden &amp; brongebruik</div>
+
+      <div class="vraag-kaart" data-tags="anoniem bron naam identiteit fictief geheim bescherming">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🎭</div>
+          <div class="vraag-tekst">Wanneer mag ik een bron anoniem opvoeren?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Norm</span><span class="antwoord-tekst">Bronnen noem je in principe met naam en toenaam — ook in beeld en audio.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Uitzondering</span><span class="antwoord-tekst">Anonimiteit mag als de bron ernstige persoonlijke, beroepsmatige of fysieke schade zou kunnen oplopen. Werkelijke naam altijd bekend bij hoofd- en eindredactie.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Gefingeerde naam</span><span class="antwoord-tekst">Alleen als het noodzakelijk is voor leesbaarheid. Altijd vermelden in de tekst dat het een gefingeerde naam betreft.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Vooraf</span><span class="antwoord-tekst">Maak vóór het interview heldere afspraken over de aard en implicaties van publicatie — zeker bij mensen zonder mediaervaring.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="AI kunstmatige intelligentie chatgpt generatief taalmodel">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🤖</div>
+          <div class="vraag-tekst">Mag ik AI-tools gebruiken bij mijn journalistieke werk?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Open houding</span><span class="antwoord-tekst">De Correspondent staat open voor AI als journalistiek hulpmiddel.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Monitoring</span><span class="antwoord-tekst">Er is een interne werkgroep die redactionele AI-experimenten monitort en toetst aan de journalistieke kaders uit dit protocol. Doe je iets nieuws met AI — bespreek het.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="bron primair wetenschappelijk document officieel onderzoek verificatie">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">📚</div>
+          <div class="vraag-tekst">Welke bronnen gebruik ik, en hoe transparant moet ik daarin zijn?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Primair</span><span class="antwoord-tekst">Gebruik bij voorkeur primaire bronnen: officiële verklaringen, overheidsrapporten, wetenschappelijke studies, kadaster, databanken, interne documenten. Geen persvoorlichters als enige bron.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Transparantie</span><span class="antwoord-tekst">Maak bronnen zo inzichtelijk en vindbaar mogelijk voor de lezer — essentieel voor betrouwbaarheid.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Diversiteit</span><span class="antwoord-tekst">Varieer in brontypen én in achtergrond van geïnterviewden (leeftijd, geslacht, etniciteit, klasse, expertise etc.).</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="off record vertrouwelijk achtergrond niet publiceren afspraak">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🔐</div>
+          <div class="vraag-tekst">Een bron wil off the record praten — hoe ga ik daarmee om?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Standaard</span><span class="antwoord-tekst">Elk gesprek is on the record (bedoeld voor publicatie), tenzij je vooraf andere afspraken hebt gemaakt.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Achteraf</span><span class="antwoord-tekst">Off the record kan niet achteraf door de bron worden bedongen — het moet vooraf worden afgesproken.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Goedkeuring</span><span class="antwoord-tekst">Een off-the-record afspraak moet altijd ter goedkeuring worden voorgelegd aan de hoofdredactie. Wees er terughoudend mee: het beperkt je journalistieke armslag.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Gebruik</span><span class="antwoord-tekst">Off-the-record info mag alleen worden gebruikt ter achtergrond en verificatie — niet letterlijk en niet herleidbaar in publicatie.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="open vizier identificeren journalist kenbaar maken opname toestemming">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">👁️</div>
+          <div class="vraag-tekst">Moet ik mij vooraf kenbaar maken als journalist?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Altijd</span><span class="antwoord-tekst">Als je iemand spreekt, opneemt of filmt met de bedoeling daarvan verslag te doen: altijd vooraf melden.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Privégesprek</span><span class="antwoord-tekst">Heb je als privépersoon iets besproken en wil je het nu gebruiken? Vraag eerst toestemming.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Geen ervaring</span><span class="antwoord-tekst">Bij mensen zonder mediaervaring: altijd duidelijk uitleggen wat het doel is en wat er in het verhaal kan terechtkomen.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Undercover</span><span class="antwoord-tekst">Undercover werken is mogelijk als het maatschappelijke belang groot genoeg is — maar vereist altijd vooraf toestemming van de hoofdredactie.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="hoor wederhoor reactie beschuldiging aantijging wederpartij">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🗣️</div>
+          <div class="vraag-tekst">Hoe en wanneer pas ik hoor en wederhoor toe?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Altijd</span><span class="antwoord-tekst">Als je schrijft over personen, groepen of organisaties: altijd hun perspectief vragen en ruimschoots gelegenheid geven te reageren op aantijgingen.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Termijn</span><span class="antwoord-tekst">Bij ernstige aantijgingen: minimaal twee werkdagen reactietermijn. Overleg met hoofdredactie of die verlengd moet worden.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Geen reactie</span><span class="antwoord-tekst">Niet bereikbaar of reageert niet? Vermeld dit expliciet in de publicatie.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Snelheid</span><span class="antwoord-tekst">Zorgvuldigheid gaat altijd boven snelheid.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="embargo afspraak tijdstip publicatie informatie geheim">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">⏳</div>
+          <div class="vraag-tekst">Een bron vraagt een embargo — hoe werkt dat?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Wat is het</span><span class="antwoord-tekst">Een embargo is een afspraak om bepaalde informatie pas na een afgesproken tijdstip te publiceren.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Terughoudend</span><span class="antwoord-tekst">DC is terughoudend met embargo's. Ze zijn alleen bindend als er ná overleg met de hoofdredactie een schriftelijke afspraak is gemaakt.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Schending</span><span class="antwoord-tekst">Zodra andere media het embargo schenden, is het niet meer van kracht.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="inzage vooraf goedkeuring tekst bron lezen artikel">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">👀</div>
+          <div class="vraag-tekst">Mag een geïnterviewde het artikel vooraf inzien of goedkeuren?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord nee"><span class="antwoord-label">Geen recht</span><span class="antwoord-tekst">Je bent niet verplicht het stuk vooraf ter goedkeuring voor te leggen.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Kan wel</span><span class="antwoord-tekst">Je kunt afspreken dat de geïnterviewde vooraf inzage krijgt om te controleren op feitelijke onjuistheden. Maak dit voor het interview helder.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Let op</span><span class="antwoord-tekst">De redactie kan niet garanderen dat het interview op een bepaalde dag verschijnt — of überhaupt verschijnt.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="archief bewaren interview audio opname materiaal data AVG">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🗄️</div>
+          <div class="vraag-tekst">Wat bewaar ik van bronmateriaal, en hoe?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Bewaar</span><span class="antwoord-tekst">Bewaar materiaal dat bijdraagt aan de onderbouwing van publicaties en uniek of moeilijk repliceerbaar is: audio-opnames, ruwe data, notities, berichtenverkeer.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Hoe</span><span class="antwoord-tekst">In een goed beveiligde omgeving, alleen toegankelijk voor direct betrokkenen. In overeenstemming met de AVG.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Gevoelig</span><span class="antwoord-tekst">Bij zeer gevoelige dossiers: speciale communicatie- en beveiligingsprotocollen waarbij informatie wordt losgekoppeld van de digitale infrastructuur.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="privacy persoonsgegevens kind minderjarig gevoelig bijzonder kwetsbaar">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🔒</div>
+          <div class="vraag-tekst">Hoe ga ik om met privacy en gevoelige persoonsgegevens?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Toets</span><span class="antwoord-tekst">Gevoelige gegevens (seksuele gerichtheid, politieke/religieuze overtuiging, financiën, strafrechtelijk verleden, locatie) deel je alleen als het relevant is voor het verhaal én het maatschappelijk belang dient.</span></div>
+          <div class="antwoord waarschuwing"><span class="antwoord-label">Kinderen</span><span class="antwoord-tekst">Extra bescherming vereist. Naast hun eigen toestemming ook schriftelijke toestemming van ouders/voogd. Alleen bij voornaam. Privégegevens verifiëren bij ouders.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Beroepsgeheim</span><span class="antwoord-tekst">Informatie verkregen van artsen, advocaten, tolken etc. alleen gebruiken als betrokkene toestemming geeft om het beroepsgeheim te doorbreken.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="social media twitter linkedin instagram account avatar bio">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">📱</div>
+          <div class="vraag-tekst">Wat zijn de regels voor mijn sociale media-gebruik?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Vrijheid</span><span class="antwoord-tekst">Je mag je professionele profiel koppelen aan je persoonlijke accounts. Je mag je uiten zoals je wil.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Grens</span><span class="antwoord-tekst">Als gedrag op sociale media in hoge mate niet strookt met de normen en waarden van DC, kun je daarop worden aangesproken.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Avatar</span><span class="antwoord-tekst">Vaste medewerkers mogen de DC-avatar gebruiken. Bij vertrek moet de avatar worden verwijderd en de bio worden aangepast. Freelancers mogen de avatar niet gebruiken, maar kunnen wél vermelden dat ze voor DC publiceren.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="fout rectificatie correctie verwijderen artikel publicatie">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">✏️</div>
+          <div class="vraag-tekst">Er zit een fout in een gepubliceerd stuk — wat nu?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Klein</span><span class="antwoord-tekst">Spelling, taal, eigennamen: gewoon corrigeren, geen melding nodig.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Groter</span><span class="antwoord-tekst">Ernstige fouten of feitelijke onjuistheden waarbij je zichtbaar ingrijpt in de tekst: rectificatie plaatsen onder de tekst met datum en tijd.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Verwijderen</span><span class="antwoord-tekst">Alleen in zeer uitzonderlijke gevallen, na zorgvuldige afweging van de hoofdredactie (grove omissie die niet te rectificeren is, of direct gevaar voor een bron). Altijd uitgebreide verantwoording op het platform.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="diversiteit inclusie taal beeld seksistisch racistisch stereotypen">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🌍</div>
+          <div class="vraag-tekst">Hoe werk ik aan diversiteit en inclusie in mijn journalistiek?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Actief</span><span class="antwoord-tekst">Gebruik inclusief taalgebruik en inclusieve communicatie — in tekst, beeld én audio. Varieer actief in je bronnen: leeftijd, geslacht, etniciteit, klasse, gender, expertise.</span></div>
+          <div class="antwoord nee"><span class="antwoord-label">Waken</span><span class="antwoord-tekst">Redactionele keuzes mogen niet (onbedoeld) bijdragen aan seksistische, racistische, xenofobe of andere schadelijke denkbeelden.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Kaders</span><span class="antwoord-tekst">Uitgangspunten staan in het manifest en in de stijlgidsen voor beeld en tekst.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="klacht raad journalistiek geschil bezwaar publicatie">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🏛️</div>
+          <div class="vraag-tekst">Wat als er een klacht komt over een publicatie?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord info"><span class="antwoord-label">Raad</span><span class="antwoord-tekst">DC respecteert het gezag van de Raad voor de Journalistiek. Bij een klacht verantwoord je je altijd samen met een afgevaardigde van de hoofdredactie.</span></div>
+          <div class="antwoord ja"><span class="antwoord-label">Eindverantw.</span><span class="antwoord-tekst">De eindverantwoordelijkheid ligt altijd bij de hoofdredacteur.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Gegrond</span><span class="antwoord-tekst">Als de Raad een klacht gegrond verklaart: melding op de website en rectificatie indien van toepassing.</span></div>
+        </div>
+      </div>
+
+      <div class="vraag-kaart" data-tags="veiligheid buitenland risico bedreiging gevaar journalist">
+        <div class="vraag-header" onclick="toggle(this)">
+          <div class="vraag-icon">🛡️</div>
+          <div class="vraag-tekst">Ik ga voor de redactie naar een riskante bestemming — hoe is dat geregeld?</div>
+          <div class="vraag-chevron">▼</div>
+        </div>
+        <div class="vraag-body">
+          <div class="antwoord ja"><span class="antwoord-label">Verzekering</span><span class="antwoord-tekst">DC draagt zorg voor je reisverzekering als je voor hen naar het buitenland gaat.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Voorbereiding</span><span class="antwoord-tekst">Bespreek fysieke en digitale risico's altijd vooraf met de hoofdredactie. Bij een negatief reisadvies van de Nederlandse overheid: veiligheidsprotocol opstellen.</span></div>
+          <div class="antwoord info"><span class="antwoord-label">Integriteit</span><span class="antwoord-tekst">Aanvallen op jouw onafhankelijkheid of integriteit worden uiterst serieus genomen. Bij bedreigingen doet de hoofdredactie aangifte.</span></div>
+        </div>
+      </div>
+
+    </div><!-- /sectie werkmethoden -->
+
+  </div><!-- /tab boom -->
+
+  <!-- TAB 2: SNELREFERENTIE -->
+  <div id="tab-snel" class="tab-content">
+    <div class="snel-grid">
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">🚫 Altijd verboden</div>
+        <ul>
+          <li>Advertenties of advertorials plaatsen</li>
+          <li>Bronnen betalen voor informatie of toegang</li>
+          <li>Cadeaus accepteren van bronnen/geïnterviewden</li>
+          <li>Plagiaat of zelfplagiaat</li>
+          <li>Financieel belang bij onderwerp waarover je schrijft</li>
+          <li>Gesponsorde persreizen (zonder uitzondering)</li>
+          <li>Off the record achteraf laten bedingen door bron</li>
+          <li>Freelancers: DC-avatar op sociale media</li>
+        </ul>
+      </div>
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">✅ Altijd verplicht</div>
+        <ul>
+          <li>Bronnen vermelden, zo inzichtelijk mogelijk</li>
+          <li>Hoor en wederhoor — ruimschoots van tevoren</li>
+          <li>Open vizier: jezelf kenbaar maken als journalist</li>
+          <li>Bronmateriaal archiveren (AVG-conform)</li>
+          <li>Verificatie vóór publicatie</li>
+          <li>Bij kinderen: schriftelijke toestemming ouders/voogd</li>
+          <li>Bij undercover: vooraf toestemming hoofdredactie</li>
+          <li>Off-the-record: vooraf én akkoord hoofdredactie</li>
+        </ul>
+      </div>
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">🤝 Vraag toestemming aan</div>
+        <ul>
+          <li><span class="badge toestemming">Bestuur</span> Nevenactiviteiten</li>
+          <li><span class="badge toestemming">Bestuur</span> Werk voor ander medium</li>
+          <li><span class="badge toestemming">Bestuur</span> Jury, afstudeercommissie</li>
+          <li><span class="badge toestemming">Hoofdred.</span> Embargo's</li>
+          <li><span class="badge toestemming">Hoofdred.</span> Embedded journalism</li>
+          <li><span class="badge toestemming">Hoofdred.</span> Reiskosten vergoeden aan bron</li>
+          <li><span class="badge toestemming">Hoofdred.</span> Samenwerkingen/doorplaatsingen</li>
+          <li><span class="badge toestemming">Hoofdred.</span> Undercover</li>
+        </ul>
+      </div>
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">⏱️ Minimumtermijnen</div>
+        <ul>
+          <li>Hoor en wederhoor (ernstige aantijgingen): minimaal 2 werkdagen</li>
+          <li>Off the record: afspraak vóór het gesprek</li>
+          <li>Embargo: schriftelijk vastgelegd vóór publicatie</li>
+          <li>Vergoeding lezing: afgesproken vóór de lezing</li>
+        </ul>
+      </div>
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">📝 Vermeld altijd bij publicatie</div>
+        <ul>
+          <li>Buitenlandse subsidie voor de reis</li>
+          <li>Aard van een samenwerking</li>
+          <li>Embedded journalism</li>
+          <li>Gefingeerde namen (in lopende tekst)</li>
+          <li>Gastauteur met belangen elders</li>
+          <li>Doorplaatsing met bronvermelding</li>
+          <li>Rectificatie: datum + tijd</li>
+        </ul>
+      </div>
+
+      <div class="snel-kaart">
+        <div class="snel-kaart-titel">🗝️ Kernwaarden manifest</div>
+        <ul>
+          <li>Nieuwsgierigheid als fabrieksinstelling</li>
+          <li>Eerlijkheid als belangrijkste kernwaarde</li>
+          <li>Advertentievrij — altijd</li>
+          <li>Constructief-kritisch: problemen én oplossingen</li>
+          <li>Transparantie over eigen wereldbeeld</li>
+          <li>Privacy: zo min mogelijk gegevens verzamelen</li>
+          <li>Journalistiek altijd boven financieel gewin</li>
+        </ul>
+      </div>
+
+    </div>
+  </div><!-- /tab snel -->
+
+  <!-- TAB 3: MANIFEST -->
+  <div id="tab-manifest" class="tab-content">
+    <p style="font-style:italic; color: var(--grijs); margin-bottom: 24px; font-size:0.9rem; line-height: 1.7;">
+      De Correspondent werd in 2013 opgericht dankzij 18.933 leden via crowdfunding. Deze tien principes vormen het manifest — de basis voor alles wat volgt.
+    </p>
+    <div class="manifest-grid">
+      <div class="manifest-item">
+        <div class="manifest-num">1</div>
+        <div class="manifest-tekst">We zijn jouw medicijn tegen de waan van de dag</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">2</div>
+        <div class="manifest-tekst">We zijn volledig advertentievrij</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">3</div>
+        <div class="manifest-tekst">We bestrijden stereotypen, vooroordelen en angstzaaierij</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">4</div>
+        <div class="manifest-tekst">We vertellen je niet alleen het probleem, maar ook wat we eraan kunnen doen</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">5</div>
+        <div class="manifest-tekst">We werken samen met jullie, onze deskundige leden</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">6</div>
+        <div class="manifest-tekst">We doen niet alsof we 'neutraal' zijn, maar zijn transparant over ons wereldbeeld</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">7</div>
+        <div class="manifest-tekst">We beschermen je privacy door zo min mogelijk gegevens over je te verzamelen</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">8</div>
+        <div class="manifest-tekst">We willen zo inclusief mogelijk zijn</div>
+      </div>
+      <div class="manifest-item">
+        <div class="manifest-num">9</div>
+        <div class="manifest-tekst">We stellen de journalistiek altijd boven financieel gewin</div>
+      </div>
+      <div class="manifest-item" style="border-left-color: var(--accent);">
+        <div class="manifest-num">10</div>
+        <div class="manifest-tekst">We geloven in transparantie en voortdurende zelfverbetering</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 32px; padding: 20px; background: var(--blauw-achter); border: 1px solid var(--rand); border-radius: 4px;">
+      <p style="font-size: 0.9rem; line-height: 1.7; color: var(--blauw);">
+        <strong>De missie in één zin:</strong> Maatschappelijke betrokkenheid vergroten door dieper inzicht te geven in hoe de wereld werkt — vanuit betrokkenheid, constructief-kritisch, met nieuwsgierigheid als fabrieksinstelling en eerlijkheid als kern.
+      </p>
+    </div>
+  </div><!-- /tab manifest -->
+
+  <div class="footer">
+    <span>Gebaseerd op het Redactieprotocol van <em>De Correspondent</em> — interactieve beslisboom</span>
+    <span>Eindverantwoordelijkheid ligt altijd bij de hoofdredacteur</span>
+  </div>
+
+</div><!-- /tabs-wrapper -->
+
+<script>
+  function toggle(header) {
+    const kaart = header.parentElement;
+    kaart.classList.toggle('open');
+  }
+
+  function toonTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function filterVragen() {
+    const q = document.getElementById('zoeker').value.toLowerCase().trim();
+    document.querySelectorAll('.vraag-kaart').forEach(kaart => {
+      const tags = (kaart.dataset.tags || '').toLowerCase();
+      const tekst = kaart.querySelector('.vraag-tekst').textContent.toLowerCase();
+      const body = kaart.querySelector('.vraag-body').textContent.toLowerCase();
+      if (!q || tags.includes(q) || tekst.includes(q) || body.includes(q)) {
+        kaart.classList.remove('hidden');
+        if (q) kaart.classList.add('open');
+      } else {
+        kaart.classList.add('hidden');
+        kaart.classList.remove('open');
+      }
+    });
+
+    // Show/hide sectie-titels
+    document.querySelectorAll('.boom-sectie').forEach(sectie => {
+      const zichtbaar = [...sectie.querySelectorAll('.vraag-kaart')].some(k => !k.classList.contains('hidden'));
+      sectie.style.display = zichtbaar ? '' : 'none';
+    });
+  }
+</script>
+</body>
+</html>
